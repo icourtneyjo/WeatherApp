@@ -76,11 +76,16 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
+    autoprefixer-rails (10.4.15.0)
+      execjs (~> 2)
     base64 (0.1.1)
     bigdecimal (3.1.4)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -101,6 +106,7 @@ GEM
     drb (2.1.1)
       ruby2_keywords
     erubi (1.12.0)
+    execjs (2.9.1)
     faraday (2.7.11)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -265,6 +271,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  bootstrap-sass
   capybara
   debug
   faraday

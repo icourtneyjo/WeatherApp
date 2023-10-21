@@ -22,6 +22,7 @@ gem "turbo-rails"
 
 gem "geocoder"
 gem 'httparty'
+gem 'bootstrap-sass'
 gem 'faraday'
 gem 'open-uri'
 gem 'font-awesome-sass'

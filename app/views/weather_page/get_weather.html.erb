@@ -12,35 +12,69 @@
 
 <div class="container">
   
+<div class="row mt-5 ">
 
-<h1>Weather for <%= @location %></h1>
-<p>Temperature: <%= @temperature %>°C</p>
-<p>Weather: <%= @description %></p>
-
+<div class="col-5">
+  <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" class="card shadow rounded">
+  <div class="card-header">
 <% if @description == 'sunny' %>
   <i class="fas fa-sun"></i> <!-- Display a sun icon for sunny weather -->
 
-<% elsif @description == 'cloudy' %>
+<% elsif @description.include?('cloud') %>
   <i class="fas fa-cloud"></i> <!-- Display a cloud icon for cloudy weather -->
 
 <% elsif @description == 'rainy' %>
   <i class="fas fa-cloud-showers-heavy"></i> <!-- Display a rain icon for rainy weather -->
 
 <% else %>
-  <i class="fas fa-question-circle"></i> <!-- Display a question mark icon for unknown weather conditions -->
+ <i class="fas fa-solid fa-temperature-half"></i> <!-- Display a question mark icon for unknown weather conditions -->
 
 <% end %>
 
+  <h6>Weather for:</h6>
+    <h4 class="font-weight-bold"> <%= @location_city %>, <%= @location_state %></span></h4>
+  </div>
+  <div class="card-body">
+<h3><%= @temperature %>°F</h3>
+<h6 class="font-weight-bold text-secondary"><%= @description.upcase %></h6>
+<div class="row">
+  <div class="col-6">
+<h6>High Today:<i class="fa-solid fa-up-long text-success"></i> <%= @temp_max %></h6>
+</div>
+<div class="col-6">
+<h6>Low Today:<i class="fa-solid fa-down-long text-danger"></i> <%= @temp_min %></h6>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-7">
+  <h2>Week Forecast:</h2>
 
 
+<% first_parts = @weeklyForecast['list'].map { |obj| obj['dt_txt'].split(' ').first } %>
+<% unique_dates = first_parts.uniq %>
+
+
+<div class="row">
+<% unique_dates.each do |date| %>
+
+<% first_match = @weeklyForecast['list'].find { |obj| obj["dt_txt"].split(' ').first == date } %>
+
+  <div class="col-4">
+    <h6><%= Time.parse(date).strftime("%A") %></h6>
+    <% forecast = @weeklyForecast['list'].find { |item| item['dt_txt'] == date } %>
+    <h6><%= first_match['main']['temp'] %></h6>
+   
+  </div>
+<% end %>
+</div>
   
-<% if @description == 'clear sky' %>
-  <!-- HTML content to display when the condition is true -->
-  <p>The condition is true, so this is displayed.</p>
-<% else %>
-  <!-- HTML content to display when the condition is false -->
-  <p>The condition is false, so this is displayed instead.</p>
-<% end %>
+
+
+</div>
+</div>
+
 
 
 
