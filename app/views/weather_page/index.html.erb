@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0/dist/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+  </head>
+<body class="h-100">
+
+<div class="container">
+   
+      <div class="container d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="col-9 text-center ">
+<%= form_tag('/weather_page/get_weather', method: 'get') do %>
+  <%= label_tag 'address', 'Enter Address:' %>
+  <%= text_field_tag 'address' %>
+  <%= submit_tag 'Get Weather' %>
+<% end %>
+      <div class="form-label-group">
+              <label for="inputEmail">What's Your Address?</label>
+        <input type="address" id="inputEmail" class="form-control" placeholder="Example: 1 Infinite Loop, Cupertino, California" required="" autofocus="">
+  <div  id="findMyLocation" class="btn btn-sm btn-primary">Find My Location</div>
+      </div>
+
+      
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember my location
+        </label>
+      </div>
+      <button class="btn btn-sm btn-primary btn-block">Get My Weather</button>
+     
+</div>
+</div>
+</div>
+  <footer class="fixed-bottom mt-auto bg-dark text-light text-center py-3">
+    <div class="container">
+      <p>&copy; 2023 Courtney Jo Zuboski's Weather App</p>
+    </div>
+  </footer>
+
+</body>
+
+
+</html>
+
