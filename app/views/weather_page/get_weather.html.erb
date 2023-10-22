@@ -1,168 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-<% currentTime = Time.now %>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0/dist/css/bootstrap.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0/dist/js/bootstrap.min.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-  </head>
-<body class="h-100">
-
-<div class="mx-5">
-  
-<div class="row mt-5 mb-5 pb-5 ">
-
-<div class="col-md-5 col-lg-5 col-sm-12 ">
-  <div class="align-items-center d-flex"> 
-    <h2>Daily Forecast: </h2>
-    <p class="m-0 text-nowrap font-weight-thin">Cached? <%= @cached %></p>
-    </div>
-  <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" class="card shadow rounded">
-  <div class="card-header">
-    <div class="d-flex">
- 
-
-   
-<% if @description == 'sunny' %>
-  <i class="fas fa-sun"></i> <!-- Display a sun icon for sunny weather -->
-
-<% elsif @description.include?('cloud') %>
-  <i class="fas fa-cloud"></i> <!-- Display a cloud icon for cloudy weather -->
-
-<% elsif @description == 'rainy' %>
-  <i class="fas fa-cloud-showers-heavy"></i> <!-- Display a rain icon for rainy weather -->
-
-<% else %>
- <i class="fas fa-solid fa-temperature-half"></i> <!-- Display a question mark icon for unknown weather conditions -->
-
-<% end %>
-     <p class="pl-2 font-weight-bold mb-0"><%= currentTime.month.to_s + '/' + currentTime.day.to_s + '/' + currentTime.year.to_s %></p>
- </div>
-
-
-
-
-  <h6>Weather for:</h6>
-    <h4 class="font-weight-bold"> <%= @location_city %>, <%= @location_state %></span></h4>
-  </div>
-  <div class="card-body">
-<h3><%= @temperature %>°F</h3>
-<h6 class="font-weight-bold text-secondary"><%= @description.upcase %></h6>
-<div class="row">
-  <div class="col-6">
-<h6>High Today:<i class="fa-solid fa-up-long text-success"></i> <%= @temp_max %></h6>
-</div>
-<div class="col-6">
-<h6>Low Today:<i class="fa-solid fa-down-long text-danger"></i> <%= @temp_min %></h6>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-7 col-lg-7 col-sm-12 ">
-  <h2>Week Forecast:</h2>
-
-
-<% first_parts = @weeklyForecast['list'].map { |obj| obj['dt_txt'].split(' ').first } %>
-
-<% unique_dates = first_parts.uniq %>
-
-
- <div id="forecastFutureDays" class="row">
- <% unique_dates.each do |date| %>
- 
-
-
- 
-  
- <% weeklyForecastByDay = @weeklyForecast['list'].filter { |item| item['dt_txt'].split(' ').first  == date } %>
- <% max_temperature_obj = weeklyForecastByDay.max_by { |data| data["temp_max"] }['main']['temp_max']   %>
-  <% min_temperature_obj = weeklyForecastByDay.min_by { |data| data["temp_max"] }['main']['temp_min']   %>
- 
-<% weatherDesc = weeklyForecastByDay.max_by { |data| data["temp_max"] }['weather'][0]['main'].to_s.upcase   %>
-
-
-  <div class="mb-2 col-lg-4 col-md-6 col-sm-12">
-      <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-     background:linear-gradient(45deg, #EEEEEE, #FAF8F9, #FFFFFF);
-      " class="bg-blue-gradient card shadow rounded">
-  <div class="card-header border-0">
-    <div class="d-flex">
- 
-
-   
-<% if weatherDesc.include?('SUN') %>
-  <i class="fas fa-sun"></i> <!-- Display a sun icon for sunny weather -->
-
-<% elsif weatherDesc.include?('CLOUD') %>
-  <i class="fas fa-cloud"></i> <!-- Display a cloud icon for cloudy weather -->
-
-<% elsif weatherDesc.include?('RAIN')%>
-  <i class="fas fa-cloud-showers-heavy"></i> <!-- Display a rain icon for rainy weather -->
-
-<% else %>
- <i class="fas fa-solid fa-temperature-half"></i> <!-- Display a question mark icon for unknown weather conditions -->
-
-<% end %>
-     <p class="pl-2 font-weight-bold mb-0">
-
-      <%= Time.parse(date).strftime("%A") %>
-     </p>
- </div>
-
-
-
-  </div>
-  <div class="card-body">
-<h3><%= max_temperature_obj %>°F</h3>
-<h6 class="font-weight-bold text-secondary"><%= weatherDesc.to_s.upcase %></h6>
-<div class="row">
-  <div class="col-6">
-<h6>High:<i class="fa-solid fa-up-long text-success"></i> <%= max_temperature_obj %></h6>
-</div>
-<div class="col-6">
-<h6>Low:<i class="fa-solid fa-down-long text-danger"></i> <%= min_temperature_obj%></h6>
-</div>
-</div>
-</div>
-</div>
-
-
-    
-</div>
-  
-  
-
-   
-<% end %>
- </div>
-
-
-</div>
-</div>
-
-
-
-
-</div>
-  <footer class="fixed-bottom mt-auto bg-dark text-light text-center py-3">
-    <div class="container">
-      <p>&copy; 2023 Courtney Jo Zuboski's Weather App</p>
-    </div>
-  </footer>
-
-</body>
-
-<script>
-
-
-
-  function alertError(message) {
-  alert("Error: " + message);
-}
-</script>
+   <head>
+      <% currentTime = Time.now %>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0/dist/css/bootstrap.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0/dist/js/bootstrap.min.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+   </head>
+   <body class="h-100">
+      <div class="mx-5">
+         <div class="row mt-5 mb-5 pb-5 ">
+            <div class="col-md-5 col-lg-5 col-sm-12 ">
+               <div class="align-items-center d-flex">
+                  <h2>Daily Forecast: </h2>
+                  <p class="m-0 text-nowrap font-weight-thin">Cached? <%= @cached %></p>
+               </div>
+               <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" class="card shadow rounded">
+                  <div class="card-header">
+                     <div class="d-flex">
+                        <% if @description == 'sunny' %>
+                        <i class="fas fa-sun"></i> <!-- Display a sun icon for sunny weather -->
+                        <% elsif @description.include?('cloud') %>
+                        <i class="fas fa-cloud"></i> <!-- Display a cloud icon for cloudy weather -->
+                        <% elsif @description == 'rainy' %>
+                        <i class="fas fa-cloud-showers-heavy"></i> <!-- Display a rain icon for rainy weather -->
+                        <% else %>
+                        <i class="fas fa-solid fa-temperature-half"></i> <!-- Display a question mark icon for unknown weather conditions -->
+                        <% end %>
+                        <p class="pl-2 font-weight-bold mb-0"><%= currentTime.month.to_s + '/' + currentTime.day.to_s + '/' + currentTime.year.to_s %></p>
+                     </div>
+                     <h6>Weather for:</h6>
+                     <h4 class="font-weight-bold"> <%= @location_city %>, <%= @location_state %></span></h4>
+                  </div>
+                  <div class="card-body">
+                     <h3><%= @temperature %>°F</h3>
+                     <h6 class="font-weight-bold text-secondary"><%= @description.upcase %></h6>
+                     <div class="row">
+                        <div class="col-6">
+                           <h6>High Today:<i class="fa-solid fa-up-long text-success"></i> <%= @temp_max %></h6>
+                        </div>
+                        <div class="col-6">
+                           <h6>Low Today:<i class="fa-solid fa-down-long text-danger"></i> <%= @temp_min %></h6>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-7 col-lg-7 col-sm-12 ">
+               <h2>Week Forecast:</h2>
+               <% first_parts = @weeklyForecast['list'].map { |obj| obj['dt_txt'].split(' ').first } %>
+               <!-- Filter all results, since multiple for each day, filter JUST by day -->
+               <% unique_dates = first_parts.uniq %>
+               <div id="forecastFutureDays" class="row">
+                  <!-- Start: Loop over each day -->
+                  <% unique_dates.each do |date| %>
+                  <!-- Get weather forecast in loop by DAY -->
+                  <% weeklyForecastByDay = @weeklyForecast['list'].filter { |item| item['dt_txt'].split(' ').first  == date } %>
+                  <!-- Get Max Temp in loop by DAY -->
+                  <% max_temperature_obj = weeklyForecastByDay.max_by { |data| data["temp_max"] }['main']['temp_max']   %>
+                  <!-- Get Min Temp in loop by DAY -->
+                  <% min_temperature_obj = weeklyForecastByDay.min_by { |data| data["temp_max"] }['main']['temp_min']   %>
+                  <!-- Get get weather forecast description - sunny,cloudy,etc.. -->
+                  <% weatherDesc = weeklyForecastByDay.max_by { |data| data["temp_max"] }['weather'][0]['main'].to_s.upcase   %>
+                  <div class="mb-2 col-lg-4 col-md-6 col-sm-12">
+                     <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                        background:linear-gradient(45deg, #EEEEEE, #FAF8F9, #FFFFFF);
+                        " class="bg-blue-gradient card shadow rounded">
+                        <div class="card-header border-0">
+                           <div class="d-flex">
+                              <% if weatherDesc.include?('SUN') %>
+                              <i class="fas fa-sun"></i> <!-- Display a sun icon for sunny weather -->
+                              <% elsif weatherDesc.include?('CLOUD') %>
+                              <i class="fas fa-cloud"></i> <!-- Display a cloud icon for cloudy weather -->
+                              <% elsif weatherDesc.include?('RAIN')%>
+                              <i class="fas fa-cloud-showers-heavy"></i> <!-- Display a rain icon for rainy weather -->
+                              <% else %>
+                              <i class="fas fa-solid fa-temperature-half"></i> <!-- Display a question mark icon for unknown weather conditions -->
+                              <% end %>
+                              <p class="pl-2 font-weight-bold mb-0">
+                                 <%= Time.parse(date).strftime("%A") %>
+                              </p>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <h3><%= max_temperature_obj %>°F</h3>
+                           <h6 class="font-weight-bold text-secondary"><%= weatherDesc.to_s.upcase %></h6>
+                           <div class="row">
+                              <div class="col-6">
+                                 <h6>High:<i class="fa-solid fa-up-long text-success"></i> <%= max_temperature_obj %></h6>
+                              </div>
+                              <div class="col-6">
+                                 <h6>Low:<i class="fa-solid fa-down-long text-danger"></i> <%= min_temperature_obj%></h6>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <!-- END: Loop over each day -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <footer class="fixed-bottom mt-auto bg-dark text-light text-center py-3">
+         <div class="container">
+            <p>&copy; 2023 Courtney Jo Zuboski's Weather App</p>
+         </div>
+      </footer>
+   </body>
+   <script>
+      function alertError(message) {
+      alert("Error: " + message);
+      }
+   </script>
 </html>
-
