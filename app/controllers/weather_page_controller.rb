@@ -23,12 +23,12 @@ class WeatherPageController < ApplicationController
         api_key = '90b6d1ad01738c2fd922e3bf61fbae1d'
         url = "https://api.openweathermap.org/data/2.5/forecast?lat=#{lat}&lon=#{lng}&cnt=40&appid=#{api_key}&units=imperial"
         
-        #url = https://api.open-meteo.com/v1/forecast?latitude=#{lat}&longitude=#{lng}&hourly=apparent_temperature&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch
+    
         responseContent = self.class.get(url) 
         
         
         response = JSON.parse(responseContent.body)
-        ##puts weather_data
+      
         @location_city = location_city
         @location_state = location_state
         @temperature = response ['list'][0]['main']['temp']
@@ -42,7 +42,6 @@ class WeatherPageController < ApplicationController
       # Cache the data for 30 minutes
       Rails.cache.write(cache_key, data, expires_in: 30.minutes)
 
-      #render json: data
     else
       @cached = 'Yes'
       response = cached_data
