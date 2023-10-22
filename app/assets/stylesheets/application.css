@@ -15,3 +15,54 @@
  */
 
  @import "bootstrap";
+
+
+ 
+  
+    h2 {
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  
+  @-webkit-keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  /* Not needed for demo */
+  html, body {
+    height: 100%;
+  }
+  
+  h1 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 20vw;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+  }
+  
