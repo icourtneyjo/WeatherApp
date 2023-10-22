@@ -19,14 +19,13 @@
 
  
   
-    h2 {
-    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+ h2 {
+    background: linear-gradient(to right, #ffae61, #c67dce, #4bc0c8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     width: 100%;
     text-align: left;
-  }
-  
+}
   @-webkit-keyframes Gradient {
     0% {
       background-position: 0% 50%;
@@ -66,3 +65,25 @@
     font-weight: 700;
   }
   
+
+
+  input[type="submit"] {
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+
+
+
+
+input#address  {
+    width: 500px;
+    height: 35px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding-left: 10px;
+    transition: 0.3s;
+   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }

@@ -27,6 +27,7 @@ gem 'faraday'
 gem 'open-uri'
 gem 'font-awesome-sass'
 gem 'nokogiri'
+gem 'dalli'
 gem 'json'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]

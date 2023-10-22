@@ -9,7 +9,7 @@ class WeatherPageController < ApplicationController
     result = Geocoder.search(address)
     
     if !result.first.nil?
-      cache_key = "weather_data_#{params[:address]}"
+      cache_key = result.first.city
 
     # Check if data is already cached
     cached_data = Rails.cache.read(cache_key)
@@ -35,7 +35,7 @@ class WeatherPageController < ApplicationController
         @temp_max = response ['list'][0]['main']['temp_max']
         @temp_min = response ['list'][0]['main']['temp_min']
         @weeklyForecast = response
-        
+        @cached = 'No'
         @description =  response ['list'][0]['weather'].first['description']
         data = response
 
@@ -44,7 +44,18 @@ class WeatherPageController < ApplicationController
 
       #render json: data
     else
-      render json: cached_data
+      @cached = 'Yes'
+      response = cached_data
+      @location_city = cached_data['city']['name']
+      @location_state = cached_data['city']['country']
+      @temperature = response ['list'][0]['main']['temp']
+      @temp_max = response ['list'][0]['main']['temp_max']
+      @temp_min = response ['list'][0]['main']['temp_min']
+      @weeklyForecast = response
+      
+      @description =  response ['list'][0]['weather'].first['description']
+      data = response
+    
     end
     else
       respond_to do |format|

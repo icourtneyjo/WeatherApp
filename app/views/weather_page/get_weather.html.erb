@@ -16,7 +16,10 @@
 <div class="row mt-5 mb-5 pb-5 ">
 
 <div class="col-md-5 col-lg-5 col-sm-12 ">
-    <h2>Daily Forecast:</h2>
+  <div class="align-items-center d-flex"> 
+    <h2>Daily Forecast: </h2>
+    <p class="m-0 text-nowrap font-weight-thin">Cached? <%= @cached %></p>
+    </div>
   <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" class="card shadow rounded">
   <div class="card-header">
     <div class="d-flex">
@@ -118,10 +121,10 @@
 <h6 class="font-weight-bold text-secondary"><%= weatherDesc.to_s.upcase %></h6>
 <div class="row">
   <div class="col-6">
-<h6>High Today:<i class="fa-solid fa-up-long text-success"></i> <%= max_temperature_obj %></h6>
+<h6>High:<i class="fa-solid fa-up-long text-success"></i> <%= max_temperature_obj %></h6>
 </div>
 <div class="col-6">
-<h6>Low Today:<i class="fa-solid fa-down-long text-danger"></i> <%= min_temperature_obj%></h6>
+<h6>Low:<i class="fa-solid fa-down-long text-danger"></i> <%= min_temperature_obj%></h6>
 </div>
 </div>
 </div>
